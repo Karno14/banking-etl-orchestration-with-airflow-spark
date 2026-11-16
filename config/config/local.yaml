@@ -1,0 +1,31 @@
+app:
+  name: "NegaraBank Data Platform"
+  env: "local"
+
+spark:
+  app_name: "negarabank_account_snapshot_etl"
+  master: "local[*]"
+  adaptive_enabled: true
+  partition_overwrite_mode: "dynamic"
+
+paths:
+  raw_data_dir: "/opt/negarabank/negarabank_dataset"
+  silver_output_dir: "/opt/negarabank/data/silver"
+  logs_dir: "/opt/negarabank/logs"
+
+database:
+  host: "core-db"
+  port: 1521
+  service: "banking"
+  user: "etl_user"
+  password: "etl_pass123"
+
+aws:
+  region: "ap-southeast-3"
+  secrets_manager:
+    secret_name: "negarabank/core-db/credentials"
+
+data_quality:
+  strict_mode: true
+  max_row_count_drop_percentage: 0.05
+  reconciliation_tolerance: 1.0

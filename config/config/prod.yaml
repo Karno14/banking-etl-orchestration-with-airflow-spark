@@ -1,0 +1,27 @@
+app:
+  name: "NegaraBank Data Platform"
+  env: "production"
+
+spark:
+  app_name: "negarabank_account_snapshot_etl"
+  master: "yarn"
+  adaptive_enabled: true
+  partition_overwrite_mode: "dynamic"
+
+paths:
+  raw_data_dir: "s3://negarabank-bronze/cdc/"
+  silver_output_dir: "s3://negarabank-silver/account_snapshots/"
+  logs_dir: "s3://negarabank-logs/spark/"
+
+database:
+  secrets_manager_key: "negarabank/production/oracle"
+
+aws:
+  region: "ap-southeast-3"
+  secrets_manager:
+    secret_name: "negarabank/core-db/credentials"
+
+data_quality:
+  strict_mode: true
+  max_row_count_drop_percentage: 0.01
+  reconciliation_tolerance: 0.01
